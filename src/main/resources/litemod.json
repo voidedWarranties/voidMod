@@ -1,0 +1,7 @@
+{
+  "name": "voidMod",
+  "mcversion": "1.12",
+  "mixinConfigs": [
+    "mixins.voidMod.json"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "xyz.voidedXD.voidMod.mixins",
+  "refmap": "mixins.voidMod.refmap.json",
+  "target": "@env(DEFAULT)",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinGuiMainMenu",
+    "MixinMinecraft",
+    "MixinEntityPlayer",
+    "MixinRender",
+    "MixinRenderPlayer"
+  ]
+}

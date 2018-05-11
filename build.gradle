@@ -1,0 +1,64 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+        maven {
+            name = "forge"
+            url = "https://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = 'sponge'
+            url = 'https://repo.spongepowered.org/maven'
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.liteloader'
+apply plugin: 'org.spongepowered.mixin'
+
+version = modVersion
+group = modGroup
+archivesBaseName = modBaseName
+
+minecraft {
+    version = project.mcVersion
+    mappings = project.mcpMappings
+    runDir = "run"
+    makeObfSourceJar = false
+}
+
+litemod {
+    json {
+        name = "voidMod"
+        displayName = "voidMod"
+        author = "voidedXD"
+        mcversion = "1.12"
+        description = "void's Stupid Crap"
+        mixinConfigs += "mixins.voidMod.json"
+        version = project.version
+    }
+}
+
+jar {
+    from litemod.outputs
+    baseName = archivesBaseName
+    classifier = null
+}
+
+sourceSets {
+    main {
+        refMap = "mixins.voidMod.refmap.json"
+    }
+}
+
+mixin {
+    defaultObfuscationEnv notch
+}
