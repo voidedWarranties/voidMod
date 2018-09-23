@@ -4,17 +4,20 @@ import com.mumfrey.liteloader.LiteMod;
 import com.mumfrey.liteloader.Tickable;
 import com.mumfrey.liteloader.core.LiteLoader;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.crash.CrashReport;
 import org.lwjgl.input.Keyboard;
 import xyz.voidedXD.voidMod.exceptions.ScrewYouException;
 
+import java.awt.*;
 import java.io.File;
 
 public class LiteModVoidMod implements LiteMod, Tickable {
 
     private static KeyBinding testKeyBinding = new KeyBinding("key.test.activate", Keyboard.KEY_DOWN, "key.categories.voidMod");
 
+    private int ticks = 0;
     /**
      * Default constructor. All LiteMods must have a default constructor. In general you should do very little
      * in the mod constructor EXCEPT for initialising any non-game-interfacing components or performing
@@ -66,7 +69,39 @@ public class LiteModVoidMod implements LiteMod, Tickable {
 
     @Override
     public void onTick(Minecraft minecraft, float partialTicks, boolean inGame, boolean clock) {
+
+
         if(LiteModVoidMod.testKeyBinding.isKeyDown() && inGame) {
+//            float sine = 0.5f * ((float) Math.sin(Math.toRadians(4.0f * ((float) ticks + minecraft.getRenderPartialTicks()))) + 1.0f);
+            float frequency = 0.0125f;
+            double red = Math.sin(frequency * ticks + 0) * 127 + 128;
+            double green = Math.sin(frequency * ticks + 2) * 127 + 128;
+            double blue = Math.sin(frequency * ticks + 4) * 127 + 128;
+
+            int r = ((int) Math.round(red)) & 0xFF;
+            int g = ((int) Math.round(green)) & 0xFF;
+            int b = ((int) Math.round(blue)) & 0xFF;
+            int a = 50;
+
+            Color color = new Color(r, g, b);
+            Color tColor = new Color(r, g, b, a);
+
+            int posX = 100;
+            int posY = 100;
+            FontRenderer fr = minecraft.fontRenderer;
+            int colorTranslucent = tColor.getRGB();
+            String text = "voided";
+            fr.drawString(text, posX, posY, color.getRGB());
+            fr.drawString(text, posX + 1, posY, colorTranslucent);
+            fr.drawString(text, posX + 1, posY + 1, colorTranslucent);
+            fr.drawString(text, posX + 1, posY - 1, colorTranslucent);
+            fr.drawString(text, posX - 1, posY, colorTranslucent);
+            fr.drawString(text, posX - 1, posY + 1, colorTranslucent);
+            fr.drawString(text, posX - 1, posY - 1, colorTranslucent);
+            fr.drawString(text, posX, posY + 1, colorTranslucent);
+            fr.drawString(text, posX, posY - 1, colorTranslucent);
+            ticks++;
+
             minecraft.displayCrashReport(new CrashReport("\n" +
                     "                                                                      \n" +
                     "                                                                      \n" +

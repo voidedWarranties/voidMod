@@ -48,6 +48,8 @@ public abstract class MixinMinecraft implements IThreadListener, ISnooperInfo {
 
     @Shadow protected abstract void init() throws LWJGLException, IOException;
 
+    @Shadow public abstract void shutdownMinecraftApplet();
+
     public MinecraftApplet mcApplet = new MinecraftApplet();
 
     private void createDisplay() throws LWJGLException {
@@ -136,7 +138,9 @@ public abstract class MixinMinecraft implements IThreadListener, ISnooperInfo {
             }
             finally
             {
-                //this.shutdownMinecraftApplet();
+//                if(!this.hasCrashed || this.crashReporter == null) {
+//                    this.shutdownMinecraftApplet();
+//                }
             }
 
             return;
@@ -152,6 +156,8 @@ public abstract class MixinMinecraft implements IThreadListener, ISnooperInfo {
         } else if(crashReportIn.saveToFile(file2)) {
 
         }
+
+        Display.destroy();
 
         mcApplet.removeAll();
         mcApplet.setLayout(new BorderLayout());

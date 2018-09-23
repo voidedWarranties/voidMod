@@ -9,6 +9,8 @@
     "MixinMinecraft",
     "MixinEntityPlayer",
     "MixinRender",
-    "MixinRenderPlayer"
+    "MixinRenderPlayer",
+    "MixinGuiNewChat",
+    "MixinRenderLiving"
   ]
 }
