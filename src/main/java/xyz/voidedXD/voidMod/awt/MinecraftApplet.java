@@ -1,6 +1,5 @@
 package xyz.voidedXD.voidMod.awt;
 
-import net.minecraft.client.Minecraft;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 

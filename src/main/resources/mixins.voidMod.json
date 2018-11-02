@@ -1,5 +1,6 @@
 {
   "required": true,
+  "minVersion": "0.5.3",
   "package": "xyz.voidedXD.voidMod.mixins",
   "refmap": "mixins.voidMod.refmap.json",
   "target": "@env(DEFAULT)",
@@ -11,6 +12,12 @@
     "MixinRender",
     "MixinRenderPlayer",
     "MixinGuiNewChat",
-    "MixinRenderLiving"
-  ]
+    "MixinRenderLiving",
+    "MixinEntityEnderPearl",
+    "MixinNetHandlerPlayClient"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "verbose": true
 }

@@ -15,13 +15,12 @@ import org.lwjgl.opengl.Display;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import xyz.voidedXD.voidMod.awt.InfoPanel;
 import xyz.voidedXD.voidMod.awt.MinecraftApplet;
-import xyz.voidedXD.voidMod.awt.MinecraftFakeLauncher;
 import xyz.voidedXD.voidMod.awt.MinecraftFrame;
 import xyz.voidedXD.voidMod.awt.PanelCrashReport;
 
 import javax.annotation.Nullable;
-import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -50,27 +49,15 @@ public abstract class MixinMinecraft implements IThreadListener, ISnooperInfo {
 
     @Shadow public abstract void shutdownMinecraftApplet();
 
+    public Frame frame = new MinecraftFrame();
     public MinecraftApplet mcApplet = new MinecraftApplet();
 
     private void createDisplay() throws LWJGLException {
-        Frame frame = new MinecraftFrame();
-        frame.setTitle("Minecraft");
-        frame.setBackground(Color.BLACK);
-        JPanel panel = new JPanel();
-        frame.setLayout(new BorderLayout());
-        panel.setPreferredSize(new Dimension(854, 480));
-        frame.add(panel, "Center");
-        frame.pack();
-        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        MinecraftFakeLauncher fake = new MinecraftFakeLauncher();
-        mcApplet.setStub(fake);
-        fake.setLayout(new BorderLayout());
-        fake.add(mcApplet, "Center");
-        fake.validate();
         frame.removeAll();
         frame.setLayout(new BorderLayout());
-        frame.add(fake, "Center");
+        frame.add(InfoPanel.getInstance(), BorderLayout.SOUTH);
+        frame.add(mcApplet, BorderLayout.CENTER);
         frame.validate();
         mcApplet.init();
     }
@@ -159,10 +146,10 @@ public abstract class MixinMinecraft implements IThreadListener, ISnooperInfo {
 
         Display.destroy();
 
-        mcApplet.removeAll();
-        mcApplet.setLayout(new BorderLayout());
-        mcApplet.add(new PanelCrashReport(crashReportIn), "Center");
-        mcApplet.validate();
+        frame.removeAll();
+        frame.setLayout(new BorderLayout());
+        frame.add(new PanelCrashReport(crashReportIn), "Center");
+        frame.validate();
 
 //        this.world.sendQuittingDisconnectingPacket();
 //        // this.loadWorld((WorldClient) null);

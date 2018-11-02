@@ -30,6 +30,7 @@ public class PanelCrashReport extends Panel {
                         "\n\n";
         TextArea textArea = new TextArea(preReport, 0, 0, 1);
         textArea.setFont(new Font("Monospaced", 0, 12));
+        textArea.setEditable(false);
         this.add(new CanvasMojangLogo(), "North");
         this.add(new CanvasCrashReport(80), "East");
         this.add(new CanvasCrashReport(80), "West");
