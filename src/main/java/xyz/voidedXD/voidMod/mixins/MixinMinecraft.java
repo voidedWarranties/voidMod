@@ -56,8 +56,9 @@ public abstract class MixinMinecraft implements IThreadListener, ISnooperInfo {
         frame.setVisible(true);
         frame.removeAll();
         frame.setLayout(new BorderLayout());
-        frame.add(InfoPanel.getInstance(), BorderLayout.SOUTH);
-        frame.add(mcApplet, BorderLayout.CENTER);
+//        frame.add(InfoPanel.getInstance(), BorderLayout.SOUTH);
+//        frame.add(mcApplet, BorderLayout.CENTER);
+        frame.add(mcApplet);
         frame.validate();
         mcApplet.init();
     }

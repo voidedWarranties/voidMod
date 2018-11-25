@@ -15,7 +15,7 @@ import java.io.File;
 
 public class LiteModVoidMod implements LiteMod, Tickable {
 
-    private static KeyBinding testKeyBinding = new KeyBinding("key.test.activate", Keyboard.KEY_DOWN, "key.categories.voidMod");
+    public static KeyBinding testKeyBinding = new KeyBinding("key.test.activate", Keyboard.KEY_DOWN, "key.categories.voidMod");
 
     private int ticks = 0;
     /**

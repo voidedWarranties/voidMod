@@ -6,15 +6,12 @@
   "target": "@env(DEFAULT)",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MixinGuiMainMenu",
+    "MixinNetHandlerPlayClient",
     "MixinMinecraft",
-    "MixinEntityPlayer",
-    "MixinRender",
-    "MixinRenderPlayer",
-    "MixinGuiNewChat",
-    "MixinRenderLiving",
-    "MixinEntityEnderPearl",
-    "MixinNetHandlerPlayClient"
+    "MixinGuiMainMenu",
+    "MixinRenderEntityItem",
+    "MixinItemRenderer",
+    "MixinRenderItem"
   ],
   "injectors": {
     "defaultRequire": 1
