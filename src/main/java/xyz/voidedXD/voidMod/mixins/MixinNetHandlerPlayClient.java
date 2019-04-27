@@ -16,6 +16,9 @@ import net.minecraft.util.SoundCategory;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Random;
 
@@ -28,7 +31,8 @@ public abstract class MixinNetHandlerPlayClient implements INetHandlerPlayClient
 
     @Shadow @Final private Random avRandomizer;
 
-    public void handleCollectItem(SPacketCollectItem packetIn)
+    @Inject(method="handleCollectItem", at=@At("HEAD"), cancellable = true)
+    public void handleCollectItem(SPacketCollectItem packetIn, CallbackInfo ci)
     {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.client);
         Entity entity = this.world.getEntityByID(packetIn.getCollectedItemEntityID());
@@ -43,7 +47,7 @@ public abstract class MixinNetHandlerPlayClient implements INetHandlerPlayClient
         {
             if (entity instanceof EntityXPOrb)
             {
-                this.world.playSound(entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.2F, 0.5F * (this.avRandomizer.nextFloat() - this.avRandomizer.nextFloat()) * 0.7F + 1.0F, false);
+                this.world.playSound(entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.2F, 0.5F * ((this.avRandomizer.nextFloat() - this.avRandomizer.nextFloat()) * 0.7F + 1.0F), false);
             }
             else
             {
@@ -58,5 +62,6 @@ public abstract class MixinNetHandlerPlayClient implements INetHandlerPlayClient
             this.client.effectRenderer.addEffect(new ParticleItemPickup(this.world, entity, entitylivingbase, 0.5F));
             this.world.removeEntityFromWorld(packetIn.getCollectedItemEntityID());
         }
+        ci.cancel();
     }
 }

@@ -1,20 +1,21 @@
 {
   "required": true,
-  "minVersion": "0.5.3",
+  "minVersion": "0.6",
   "package": "xyz.voidedXD.voidMod.mixins",
   "refmap": "mixins.voidMod.refmap.json",
-  "target": "@env(DEFAULT)",
-  "compatibilityLevel": "JAVA_8",
   "mixins": [
     "MixinNetHandlerPlayClient",
     "MixinMinecraft",
     "MixinGuiMainMenu",
     "MixinRenderEntityItem",
     "MixinItemRenderer",
-    "MixinRenderItem"
+    "MixinRenderItem",
+    "MixinEntityPlayer",
+    "MixinItemFood",
+    "MixinFoodStats",
+    "MixinGuiIngame"
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "verbose": true
+  }
 }

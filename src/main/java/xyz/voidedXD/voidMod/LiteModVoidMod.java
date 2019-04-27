@@ -73,34 +73,35 @@ public class LiteModVoidMod implements LiteMod, Tickable {
 
         if(LiteModVoidMod.testKeyBinding.isKeyDown() && inGame) {
 //            float sine = 0.5f * ((float) Math.sin(Math.toRadians(4.0f * ((float) ticks + minecraft.getRenderPartialTicks()))) + 1.0f);
-            float frequency = 0.0125f;
-            double red = Math.sin(frequency * ticks + 0) * 127 + 128;
-            double green = Math.sin(frequency * ticks + 2) * 127 + 128;
-            double blue = Math.sin(frequency * ticks + 4) * 127 + 128;
 
-            int r = ((int) Math.round(red)) & 0xFF;
-            int g = ((int) Math.round(green)) & 0xFF;
-            int b = ((int) Math.round(blue)) & 0xFF;
-            int a = 50;
-
-            Color color = new Color(r, g, b);
-            Color tColor = new Color(r, g, b, a);
-
-            int posX = 100;
-            int posY = 100;
-            FontRenderer fr = minecraft.fontRenderer;
-            int colorTranslucent = tColor.getRGB();
-            String text = "voided";
-            fr.drawString(text, posX, posY, color.getRGB());
-            fr.drawString(text, posX + 1, posY, colorTranslucent);
-            fr.drawString(text, posX + 1, posY + 1, colorTranslucent);
-            fr.drawString(text, posX + 1, posY - 1, colorTranslucent);
-            fr.drawString(text, posX - 1, posY, colorTranslucent);
-            fr.drawString(text, posX - 1, posY + 1, colorTranslucent);
-            fr.drawString(text, posX - 1, posY - 1, colorTranslucent);
-            fr.drawString(text, posX, posY + 1, colorTranslucent);
-            fr.drawString(text, posX, posY - 1, colorTranslucent);
-            ticks++;
+//            float frequency = 0.0125f;
+//            double red = Math.sin(frequency * ticks + 0) * 127 + 128;
+//            double green = Math.sin(frequency * ticks + 2) * 127 + 128;
+//            double blue = Math.sin(frequency * ticks + 4) * 127 + 128;
+//
+//            int r = ((int) Math.round(red)) & 0xFF;
+//            int g = ((int) Math.round(green)) & 0xFF;
+//            int b = ((int) Math.round(blue)) & 0xFF;
+//            int a = 50;
+//
+//            Color color = new Color(r, g, b);
+//            Color tColor = new Color(r, g, b, a);
+//
+//            int posX = 100;
+//            int posY = 100;
+//            FontRenderer fr = minecraft.fontRenderer;
+//            int colorTranslucent = tColor.getRGB();
+//            String text = "voided";
+//            fr.drawString(text, posX, posY, color.getRGB());
+//            fr.drawString(text, posX + 1, posY, colorTranslucent);
+//            fr.drawString(text, posX + 1, posY + 1, colorTranslucent);
+//            fr.drawString(text, posX + 1, posY - 1, colorTranslucent);
+//            fr.drawString(text, posX - 1, posY, colorTranslucent);
+//            fr.drawString(text, posX - 1, posY + 1, colorTranslucent);
+//            fr.drawString(text, posX - 1, posY - 1, colorTranslucent);
+//            fr.drawString(text, posX, posY + 1, colorTranslucent);
+//            fr.drawString(text, posX, posY - 1, colorTranslucent);
+//            ticks++;
 
 //            minecraft.displayCrashReport(new CrashReport("\n" +
 //                    "                                                                      \n" +

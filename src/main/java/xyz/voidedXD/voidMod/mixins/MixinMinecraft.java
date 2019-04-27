@@ -15,7 +15,9 @@ import org.lwjgl.opengl.Display;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import xyz.voidedXD.voidMod.awt.InfoPanel;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.voidedXD.voidMod.awt.MinecraftApplet;
 import xyz.voidedXD.voidMod.awt.MinecraftFrame;
 import xyz.voidedXD.voidMod.awt.PanelCrashReport;
@@ -49,10 +51,13 @@ public abstract class MixinMinecraft implements IThreadListener, ISnooperInfo {
 
     @Shadow public abstract void shutdownMinecraftApplet();
 
+    @Shadow public abstract void displayCrashReport(CrashReport crashReportIn);
+
     public Frame frame = new MinecraftFrame();
     public MinecraftApplet mcApplet = new MinecraftApplet();
 
-    private void createDisplay() throws LWJGLException {
+    @Inject(method="createDisplay", at=@At("HEAD"), cancellable = true)
+    private void createDisplay(CallbackInfo ci) throws LWJGLException {
         frame.setVisible(true);
         frame.removeAll();
         frame.setLayout(new BorderLayout());
@@ -61,9 +66,12 @@ public abstract class MixinMinecraft implements IThreadListener, ISnooperInfo {
         frame.add(mcApplet);
         frame.validate();
         mcApplet.init();
+
+        ci.cancel();
     }
 
-    public void run()
+    @Inject(method="run", at=@At("HEAD"), cancellable = true)
+    public void run(CallbackInfo ci)
     {
         this.running = true;
 
@@ -133,9 +141,12 @@ public abstract class MixinMinecraft implements IThreadListener, ISnooperInfo {
 
             return;
         }
+
+        ci.cancel();
     }
 
-    public void displayCrashReport(CrashReport crashReportIn) {
+    @Inject(method="displayCrashReport", at=@At("HEAD"), cancellable = true)
+    public void displayCrashReport(CrashReport crashReportIn, CallbackInfo ci) {
         File file1 = new File(Minecraft.getMinecraft().mcDataDir, "crash-reports");
         File file2 = new File(file1, "crash-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + "-client.txt");
         Bootstrap.printToSYSOUT(crashReportIn.getCompleteReport());
@@ -157,5 +168,6 @@ public abstract class MixinMinecraft implements IThreadListener, ISnooperInfo {
 //        this.displayGuiScreen(new GuiMainMenu());
 //        this.displayGuiScreen(new GuiCrashReport(crashReportIn));
 
+        ci.cancel();
     }
 }

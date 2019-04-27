@@ -28,7 +28,8 @@ public abstract class MixinGuiMainMenu extends GuiScreen {
         minceraftRoll = 0;
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException
+    @Inject(method = "actionPerformed", at = @At("HEAD"), cancellable = true)
+    protected void actionPerformed(GuiButton button, CallbackInfo ci)
     {
         if (button.id == 0)
         {
@@ -76,5 +77,7 @@ public abstract class MixinGuiMainMenu extends GuiScreen {
                 this.mc.displayGuiScreen(new GuiYesNo(this, I18n.format("selectWorld.deleteQuestion"), "'" + worldinfo.getWorldName() + "' " + I18n.format("selectWorld.deleteWarning"), I18n.format("selectWorld.deleteButton"), I18n.format("gui.cancel"), 12));
             }
         }
+
+        ci.cancel();
     }
 }
